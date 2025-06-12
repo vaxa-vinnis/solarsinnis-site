@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sólar Sinnis</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8f5f0;
+      color: #2c2c2c;
+    }
+    header {
+      background: #d19c42;
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
+    main {
+      max-width: 800px;
+      margin: 2em auto;
+      padding: 1em;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.2em;
+    }
+    p {
+      font-size: 1.2em;
+      line-height: 1.6em;
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      font-size: 0.9em;
+      background: #eee;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sólar Sinnis</h1>
+    <p>Recreación histórica vikinga en México</p>
+  </header>
+  <main>
+    <h2>¿Quiénes somos?</h2>
+    <p>
+      Sólar Sinnis es un colectivo dedicado a la recreación histórica de la cultura vikinga en Mesoamérica. A través de actividades educativas, demostraciones artesanales y rituales simbólicos, buscamos acercar el legado escandinavo a nuevas generaciones.
+    </p>
+
+    <h2>¿Qué hacemos?</h2>
+    <ul>
+      <li>Recreación de vestimenta y vida cotidiana nórdica</li>
+      <li>Demostraciones de oficios antiguos: forja, tejido, cocina</li>
+      <li>Participación en ferias medievales y culturales</li>
+      <li>Charlas académicas y colaboraciones con grupos afines</li>
+    </ul>
+
+    <h2>Contáctanos</h2>
+    <p>
+      Escríbenos a: <a href="mailto:contacto@recreacionvikinga.com">contacto@recreacionvikinga.com</a><br/>
+      Síguenos en redes como <strong>@seguidoresdelsol</strong>
+    </p>
+  </main>
+  <footer>
+    &copy; 2025 Sólar Sinnis · recreacionvikinga.com
+  </footer>
+</body>
+</html>
