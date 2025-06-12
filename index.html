@@ -1,70 +1,106 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sólar Sinnis</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sólar Sinnis - Recreación Vikinga</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #f8f5f0;
-      color: #2c2c2c;
+      background-color: #f8f5f0;
     }
-    header {
-      background: #d19c42;
+    .hero {
+      background: url('img/hero-vikingo.jpg') center/cover no-repeat;
       color: white;
-      padding: 1em;
+      padding: 100px 0;
       text-align: center;
     }
-    main {
-      max-width: 800px;
-      margin: 2em auto;
-      padding: 1em;
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: bold;
     }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.2em;
-    }
-    p {
-      font-size: 1.2em;
-      line-height: 1.6em;
+    .section-title {
+      color: #d19c42;
+      margin-bottom: 1rem;
     }
     footer {
-      text-align: center;
-      padding: 1em;
-      font-size: 0.9em;
-      background: #eee;
+      background-color: #222;
+      color: #ccc;
+      padding: 2rem 0;
+    }
+    footer a {
+      color: #d19c42;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <header>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Sólar Sinnis</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#quienes">Quiénes somos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#quehacemos">Qué hacemos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero text-white d-flex flex-column justify-content-center align-items-center">
     <h1>Sólar Sinnis</h1>
-    <p>Recreación histórica vikinga en México</p>
+    <p class="lead">Recreación histórica vikinga en México</p>
   </header>
-  <main>
-    <h2>¿Quiénes somos?</h2>
-    <p>
-      Sólar Sinnis es un colectivo dedicado a la recreación histórica de la cultura vikinga en Mesoamérica. A través de actividades educativas, demostraciones artesanales y rituales simbólicos, buscamos acercar el legado escandinavo a nuevas generaciones.
-    </p>
 
-    <h2>¿Qué hacemos?</h2>
-    <ul>
-      <li>Recreación de vestimenta y vida cotidiana nórdica</li>
-      <li>Demostraciones de oficios antiguos: forja, tejido, cocina</li>
-      <li>Participación en ferias medievales y culturales</li>
-      <li>Charlas académicas y colaboraciones con grupos afines</li>
-    </ul>
+  <!-- Main content -->
+  <main class="container py-5">
+    <section id="quienes" class="mb-5">
+      <h2 class="section-title">¿Quiénes somos?</h2>
+      <p>
+        Sólar Sinnis es un colectivo de recreación histórica dedicado a revivir la cultura vikinga mediante actividades educativas, investigación, talleres y participación en eventos culturales. Nos enfocamos en una representación rigurosa, basada en fuentes históricas verificadas.
+      </p>
+    </section>
 
-    <h2>Contáctanos</h2>
-    <p>
-      Escríbenos a: <a href="mailto:contacto@recreacionvikinga.com">contacto@recreacionvikinga.com</a><br/>
-      Síguenos en redes como <strong>@seguidoresdelsol</strong>
-    </p>
+    <section id="quehacemos" class="mb-5">
+      <h2 class="section-title">¿Qué hacemos?</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <ul>
+            <li>Demostraciones artesanales: forja, cocina, textiles</li>
+            <li>Participación en ferias medievales</li>
+            <li>Charlas de divulgación histórica</li>
+            <li>Eventos rituales y conmemoraciones solares</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <img src="img/actividad.jpg" class="img-fluid rounded" alt="Actividades vikingas">
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="mb-5">
+      <h2 class="section-title">Contáctanos</h2>
+      <p>📧 <a href="mailto:info@recreacionvikinga.com">contacto@recreacionvikinga.com</a></p>
+      <p>🌐 <a href="https://www.recreacionvikinga.com">www.recreacionvikinga.com</a></p>
+      <p>📸 Instagram y Facebook: <strong>@recreacionvikinga</strong></p>
+    </section>
   </main>
-  <footer>
-    &copy; 2025 Sólar Sinnis · recreacionvikinga.com
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <div class="container">
+      <p>&copy; <?php echo date("Y"); ?> Sólar Sinnis · Todos los derechos reservados</p>
+    </div>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
