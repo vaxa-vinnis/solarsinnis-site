@@ -39,8 +39,8 @@
       color: var(--primary-color);
       text-decoration: none;
     }
-    row {
-      justify-content: center;
+    div#member-profile {
+    justify-content: center;
     }
    .card-img, .card-img-bottom, .card-img-top {
      align-self: center;
@@ -77,14 +77,10 @@
   </div>
 
 <script>
-  // Obtener el ID del miembro de la URL
   const urlParams = new URLSearchParams(window.location.search);
-  const memberId = urlParams.get('id'); // Ej. /members?id=303
-
-  // URL de la API de Google Apps Script
+  const memberId = urlParams.get('id');
   const apiUrl = 'https://script.google.com/macros/s/AKfycbxxmGM6zluattWSCMcYq1FJFHAxVH36qXgQ-Y4P_NXPikSte1jOfmpUMS2PmN9dDDtweQ/exec';
 
-  // Función para obtener los datos de un miembro específico
   function getMember(id) {
     fetch(apiUrl + "?id=" + id)
       .then(response => response.json())
@@ -101,23 +97,32 @@
       });
   }
 
-  // Función para mostrar el perfil del miembro
   function displayMemberProfile(member) {
     const container = document.getElementById("member-profile");
 
     const memberCard = document.createElement("div");
-    memberCard.classList.add("col-md-8", "mb-4");
+    memberCard.classList.add("col-md-10", "mx-auto", "mb-4");
 
     memberCard.innerHTML = `
-      <div class="card">
-        <img src="${member.foto}" class="card-img-top" alt="Foto de ${member.nombre}">
+      <div class="card bg-dark text-light border-warning">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="${member.foto}" class="img-fluid h-100 rounded-start" alt="Foto de ${member.nombre}" style="object-fit: cover;">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h3 class="card-title text-warning">${member.nombre}</h3>
+              <p class="card-text"><strong>Grado:</strong> ${member.grado}</p>
+              <p class="card-text"><strong>Estilo:</strong> ${member.estilo}</p>
+              <p class="card-text"><strong>Arma principal:</strong> ${member.arma || 'N/A'}</p>
+              <p class="card-text"><strong>Frase:</strong> "<em>${member.frase}</em>"</p>
+              <p class="card-text"><strong>Activo desde:</strong> ${member.desde || 'N/A'}</p>
+            </div>
+          </div>
+        </div>
         <div class="card-body">
-          <h5 class="card-title">${member.nombre}</h5>
-          <p class="card-text"><strong>Grado:</strong> ${member.grado}</p>
-          <p class="card-text"><strong>Estilo:</strong> ${member.estilo}</p>
-          <p class="card-text"><strong>Frase:</strong> "${member.frase}"</p>
-          <h6 class="mt-4">Estadísticas</h6>
-          <canvas id="radarChart" width="400" height="400"></canvas>
+          <h5 class="text-center mt-4">Estadísticas</h5>
+          <canvas id="radarChart" height="400"></canvas>
         </div>
       </div>
     `;
