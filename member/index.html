@@ -114,9 +114,10 @@
               <h3 class="card-title text-warning">${member.nombre}</h3>
               <p class="card-text"><strong>Grado:</strong> ${member.grado}</p>
               <p class="card-text"><strong>Estilo:</strong> ${member.estilo}</p>
-              <p class="card-text"><strong>Arma principal:</strong> ${member.arma || 'N/A'}</p>
+              <p class="card-text"><strong>Arma principal:</strong> ${member.arma_prin || 'N/A'}</p>
               <p class="card-text"><strong>Frase:</strong> "<em>${member.frase}</em>"</p>
-              <p class="card-text"><strong>Activo desde:</strong> ${member.desde || 'N/A'}</p>
+              <p class="card-text"><strong>Activo desde:</strong> ${member.inicio || 'N/A'}</p>
+              <img src="${member.escudo}" class="escudo" alt="Escudo de ${member.nombre}">
             </div>
           </div>
         </div>
