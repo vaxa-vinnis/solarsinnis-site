@@ -70,7 +70,12 @@
 <!-- Tarjeta -->
   <div class="container py-5">
     <h2 class="text-center">Miembro Reconocido</h2>
-
+    <div id="loading" class="text-center my-5">
+      <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2">Cargando perfil del miembro...</p>
+    </div>
     <div id="member-profile" class="row">
       <!-- Aquí se mostrarán los detalles del miembro -->
     </div>
@@ -82,20 +87,30 @@
   const apiUrl = 'https://script.google.com/macros/s/AKfycbxxmGM6zluattWSCMcYq1FJFHAxVH36qXgQ-Y4P_NXPikSte1jOfmpUMS2PmN9dDDtweQ/exec';
 
   function getMember(id) {
-    fetch(apiUrl + "?id=" + id)
-      .then(response => response.json())
-      .then(data => {
-        if (data && data[0] && data[0].id === id) {
-          displayMemberProfile(data[0]);
-        } else {
-          document.getElementById("member-profile").innerHTML = '<p>Miembro no encontrado.</p>';
-        }
-      })
-      .catch(error => {
-        console.error("Error al obtener los datos:", error);
-        document.getElementById("member-profile").innerHTML = '<p>Error al cargar los datos.</p>';
-      });
-  }
+  // Mostrar el spinner
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("member-profile").innerHTML = ""; // Limpiar contenido
+
+  fetch(apiUrl + "?id=" + id)
+    .then(response => response.json())
+    .then(data => {
+      // Ocultar el spinner
+      document.getElementById("loading").style.display = "none";
+
+      if (data && data[0] && data[0].id === id) {
+        const member = data[0];
+        displayMemberProfile(member);
+      } else {
+        document.getElementById("member-profile").innerHTML = '<p>Miembro no encontrado.</p>';
+      }
+    })
+    .catch(error => {
+      console.error("Error al obtener los datos:", error);
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("member-profile").innerHTML = '<p>Error al cargar los datos.</p>';
+    });
+}
+
 
   function displayMemberProfile(member) {
     const container = document.getElementById("member-profile");
