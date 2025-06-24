@@ -3,51 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ranking Vikingos</title>
+  <title>Miembro Vikingos</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" />
 </head>
 <body>
 
   <div class="container py-5">
-    <h2 class="text-center">Ranking Vikingos</h2>
+    <h2 class="text-center">Perfil del Miembro Vikingos</h2>
 
-    <div id="ranking-members" class="row">
-      <!-- Aquí se mostrarán los miembros -->
+    <div id="member-profile" class="row">
+      <!-- Aquí se mostrarán los detalles del miembro -->
     </div>
   </div>
 
   <script>
+    // Obtener el ID del miembro de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const memberId = urlParams.get('id');  // Capturamos el valor del parámetro 'id' en la URL, ej. /members?id=303
+
     // URL de la API de Google Apps Script
     const apiUrl = 'https://script.google.com/macros/s/AKfycbwPJXkVOgtqNdq6Bbd17BskDNFmb7wDqKK_6qKx54uvkAiYsFcLCWBOqHKzT_bPriwAkw/exec';
 
-    // Función para obtener y mostrar los miembros
-    function getMembers() {
+    // Función para obtener los datos de un miembro específico
+    function getMember(id) {
       fetch(apiUrl + "?origin=https://recreacionvikinga.com", {
         method: 'GET',
       })
       .then(response => response.json())  // Convertir la respuesta en JSON
       .then(data => {
         console.log(data);  // Ver datos en la consola para depuración
-        displayMembers(data);  // Mostrar los miembros en el HTML
+
+        // Filtramos los datos para obtener solo el miembro que coincide con el ID
+        const member = data.find(item => item.id === id);
+        
+        if (member) {
+          displayMemberProfile(member);  // Mostrar el perfil del miembro
+        } else {
+          document.getElementById("member-profile").innerHTML = '<p>Miembro no encontrado.</p>';
+        }
       })
       .catch(error => {
         console.error("Error al obtener los datos:", error);
       });
     }
 
-    // Función para mostrar los miembros en el HTML
-    function displayMembers(members) {
-      const container = document.getElementById("ranking-members");
+    // Función para mostrar los detalles de un miembro en el HTML
+    function displayMemberProfile(member) {
+      const container = document.getElementById("member-profile");
 
-      members.forEach(member => {
-        const memberCard = document.createElement("div");
-        memberCard.classList.add("col-md-4", "mb-4");
+      const memberCard = document.createElement("div");
+      memberCard.classList.add("col-md-8", "mb-4");
 
-        memberCard.innerHTML = `
-          <div class="card">
-            <img src="${member.foto}" class="card-img-top" alt="Foto de ${member.nombre}">
-            <div class="card-body">
-              <h5 class="card-title">${member.nombre}</h5>
-              <p class="card-text">Grado: ${member.grado}</p>
-              <p class="card-text">Estilo: ${member.estilo}</p>
-              <p class="card-text">Frase: "${member.f
+      memberCard.innerHTML = `
+        <div class="card">
+          <img src="${member.foto}" class="card-img-top" alt="Foto de ${member.nombre}">
+          <div class="card-body">
+            <h5 class="card-title">${member.nombre}</h5>
+            <p class="card-text">Grado: ${member.grado}</p>
+            <p class="card-text">Estilo: ${member.estilo}</p>
+            <p class="card-text">Frase: "${member.frase}"</p>
+
+            <h6>Estadísticas</h6>
+            <ul class="list-group">
+              <li class="list-group-item">Fuerza: ${member.fuerza}</li>
+              <li class="list-group-item">Velocidad: ${member.velocidad}</li>
+              <li class="list-group-item">Resistencia: ${member.resistencia}</li>
+              <li class="list-group-item">Tácticas: ${member.tacticas}</li>
+              <li class="list-group-item">Carisma: ${member.carisma}</li>
+              <li class="list-group-item">Precisión: ${member.precision}</li>
+              <li class="list-group-item">Agilidad: ${member.agilidad}</li>
+            </ul>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(memberCard);
+    }
+
+    // Llamar a la función con el ID del miembro de la URL
+    if (memberId) {
+      getMember(memberId);  // Si existe un ID, lo pasamos a la función
+    } else {
+      document.getElementById("member-profile").innerHTML = '<p>Por favor, especifique un ID de miembro en la URL.</p>';
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
