@@ -67,7 +67,7 @@
 
 <!-- Tarjeta -->
   <div class="container py-5">
-    <h2 class="text-center">Perfil 3</h2>
+    <h2 class="text-center">Perfil 5</h2>
 
     <div id="member-profile" class="row">
       <!-- Aquí se mostrarán los detalles del miembro -->
@@ -75,78 +75,75 @@
   </div>
 
 <script>
-  // Obtener el ID del miembro de la URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const memberId = urlParams.get('id');  // Capturamos el valor del parámetro 'id' en la URL, ej. /members?id=303
+    // Obtener el ID del miembro de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const memberId = urlParams.get('id');  // Capturamos el valor del parámetro 'id' en la URL, ej. /members?id=303
 
-  // URL de la API de Google Apps Script
-  const apiUrl = 'https://script.google.com/macros/s/AKfycbx2RlUuFWFWlETXHnIOBCv8xcMjKQTLAk5fs4sosj4rFox0OxrXZhxkvy6JVciv56SY7A/exec';
+    // URL de la API de Google Apps Script
+    const apiUrl = 'https://script.google.com/macros/s/AKfycbxxmGM6zluattWSCMcYq1FJFHAxVH36qXgQ-Y4P_NXPikSte1jOfmpUMS2PmN9dDDtweQ/exec';
 
-  // Función para obtener los datos de un miembro específico
-  function getMember(id) {
-    // Si hay un ID, lo agregamos como parámetro a la URL
-    const url = apiUrl + "?id=" + id;
+    // Función para obtener los datos de un miembro específico
+    function getMember(id) {
+      fetch(apiUrl + "?id=" + id)
+        .then(response => response.json())  // Convertir la respuesta en JSON
+        .then(data => {
+          console.log(data);  // Ver datos en la consola para depuración
 
-    fetch(url, {
-      method: 'GET',
-    })
-    .then(response => response.json())  // Convertir la respuesta en JSON
-    .then(data => {
-      console.log(data);  // Ver datos en la consola para depuración
+          // Si encontramos datos del miembro
+          if (data && data[0] && data[0].id === id) {
+            const member = data[0];  // Obtenemos el primer (y único) miembro
 
-      // Filtramos los datos para obtener solo el miembro que coincide con el ID
-      if (data.length > 0) {
-        const member = data[0];  // Se espera que solo haya un miembro que coincida
-        displayMemberProfile(member);  // Mostrar el perfil del miembro
-      } else {
-        document.getElementById("member-profile").innerHTML = '<p>Miembro no encontrado.</p>';
-      }
-    })
-    .catch(error => {
-      console.error("Error al obtener los datos:", error);
-    });
-  }
+            displayMemberProfile(member);  // Mostrar el perfil del miembro
+          } else {
+            document.getElementById("member-profile").innerHTML = '<p>Miembro no encontrado.</p>';
+          }
+        })
+        .catch(error => {
+          console.error("Error al obtener los datos:", error);
+          document.getElementById("member-profile").innerHTML = '<p>Error al cargar los datos.</p>';
+        });
+    }
 
-  // Función para mostrar los detalles de un miembro en el HTML
-  function displayMemberProfile(member) {
-    const container = document.getElementById("member-profile");
+    // Función para mostrar los detalles del miembro en el HTML
+    function displayMemberProfile(member) {
+      const container = document.getElementById("member-profile");
 
-    const memberCard = document.createElement("div");
-    memberCard.classList.add("col-md-8", "mb-4");
+      const memberCard = document.createElement("div");
+      memberCard.classList.add("col-md-8", "mb-4");
 
-    memberCard.innerHTML = `
-      <div class="card">
-        <img src="${member.foto}" class="card-img-top" alt="Foto de ${member.nombre}">
-        <div class="card-body">
-          <h5 class="card-title">${member.nombre}</h5>
-          <p class="card-text">Grado: ${member.grado}</p>
-          <p class="card-text">Estilo: ${member.estilo}</p>
-          <p class="card-text">Frase: "${member.frase}"</p>
+      memberCard.innerHTML = `
+        <div class="card">
+          <img src="${member.foto}" class="card-img-top" alt="Foto de ${member.nombre}">
+          <div class="card-body">
+            <h5 class="card-title">${member.nombre}</h5>
+            <p class="card-text"><strong>Grado:</strong> ${member.grado}</p>
+            <p class="card-text"><strong>Estilo:</strong> ${member.estilo}</p>
+            <p class="card-text"><strong>Frase:</strong> "${member.frase}"</p>
 
-          <h6>Estadísticas</h6>
-          <ul class="list-group">
-            <li class="list-group-item">Fuerza: ${member.fuerza}</li>
-            <li class="list-group-item">Velocidad: ${member.velocidad}</li>
-            <li class="list-group-item">Resistencia: ${member.resistencia}</li>
-            <li class="list-group-item">Tácticas: ${member.tacticas}</li>
-            <li class="list-group-item">Carisma: ${member.carisma}</li>
-            <li class="list-group-item">Precisión: ${member.precision}</li>
-            <li class="list-group-item">Agilidad: ${member.agilidad}</li>
-          </ul>
+            <h6>Estadísticas</h6>
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Fuerza:</strong> ${member.fuerza}</li>
+              <li class="list-group-item"><strong>Velocidad:</strong> ${member.velocidad}</li>
+              <li class="list-group-item"><strong>Resistencia:</strong> ${member.resistencia}</li>
+              <li class="list-group-item"><strong>Tácticas:</strong> ${member.tacticas}</li>
+              <li class="list-group-item"><strong>Carisma:</strong> ${member.carisma}</li>
+              <li class="list-group-item"><strong>Precisión:</strong> ${member.precision}</li>
+              <li class="list-group-item"><strong>Agilidad:</strong> ${member.agilidad}</li>
+            </ul>
+          </div>
         </div>
-      </div>
-    `;
+      `;
 
-    container.appendChild(memberCard);
-  }
+      container.appendChild(memberCard);
+    }
 
-  // Llamar a la función con el ID del miembro de la URL
-  if (memberId) {
-    getMember(memberId);  // Si existe un ID, lo pasamos a la función
-  } else {
-    document.getElementById("member-profile").innerHTML = '<p>Por favor, especifique un ID de miembro en la URL.</p>';
-  }
-</script>
+    // Llamar a la función con el ID del miembro de la URL
+    if (memberId) {
+      getMember(memberId);  // Si existe un ID, lo pasamos a la función
+    } else {
+      document.getElementById("member-profile").innerHTML = '<p>Por favor, especifique un ID de miembro en la URL.</p>';
+    }
+  </script>
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
