@@ -74,19 +74,20 @@
     </div>
   </div>
 
-
-
-  <script>
+<script>
   // Obtener el ID del miembro de la URL
   const urlParams = new URLSearchParams(window.location.search);
   const memberId = urlParams.get('id');  // Capturamos el valor del parámetro 'id' en la URL, ej. /members?id=303
 
   // URL de la API de Google Apps Script
-  const apiUrl = 'https://script.google.com/macros/s/AKfycby51ST7kOlW5jxUusF7n1TvsQI0ehx7Y13Ql0dV83WpUc0AJX4y6hCQGW5RHY_5p7odqg/exec';
+  const apiUrl = 'https://script.google.com/macros/s/AKfycbx2RlUuFWFWlETXHnIOBCv8xcMjKQTLAk5fs4sosj4rFox0OxrXZhxkvy6JVciv56SY7A/exec';
 
   // Función para obtener los datos de un miembro específico
   function getMember(id) {
-    fetch(apiUrl + "?id=" + id + "&origin=https://recreacionvikinga.com", {
+    // Si hay un ID, lo agregamos como parámetro a la URL
+    const url = apiUrl + "?id=" + id;
+
+    fetch(url, {
       method: 'GET',
     })
     .then(response => response.json())  // Convertir la respuesta en JSON
@@ -146,6 +147,7 @@
     document.getElementById("member-profile").innerHTML = '<p>Por favor, especifique un ID de miembro en la URL.</p>';
   }
 </script>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
