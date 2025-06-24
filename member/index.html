@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ranking Vikingos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" />
+</head>
+<body>
+
+  <div class="container py-5">
+    <h2 class="text-center">Ranking Vikingos</h2>
+
+    <div id="ranking-members" class="row">
+      <!-- Aquí se mostrarán los miembros -->
+    </div>
+  </div>
+
+  <script>
+    // URL de la API de Google Apps Script
+    const apiUrl = 'https://script.google.com/macros/s/AKfycbwPJXkVOgtqNdq6Bbd17BskDNFmb7wDqKK_6qKx54uvkAiYsFcLCWBOqHKzT_bPriwAkw/exec';
+
+    // Función para obtener y mostrar los miembros
+    function getMembers() {
+      fetch(apiUrl + "?origin=https://recreacionvikinga.com", {
+        method: 'GET',
+      })
+      .then(response => response.json())  // Convertir la respuesta en JSON
+      .then(data => {
+        console.log(data);  // Ver datos en la consola para depuración
+        displayMembers(data);  // Mostrar los miembros en el HTML
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos:", error);
+      });
+    }
+
+    // Función para mostrar los miembros en el HTML
+    function displayMembers(members) {
+      const container = document.getElementById("ranking-members");
+
+      members.forEach(member => {
+        const memberCard = document.createElement("div");
+        memberCard.classList.add("col-md-4", "mb-4");
+
+        memberCard.innerHTML = `
+          <div class="card">
+            <img src="${member.foto}" class="card-img-top" alt="Foto de ${member.nombre}">
+            <div class="card-body">
+              <h5 class="card-title">${member.nombre}</h5>
+              <p class="card-text">Grado: ${member.grado}</p>
+              <p class="card-text">Estilo: ${member.estilo}</p>
+              <p class="card-text">Frase: "${member.f
