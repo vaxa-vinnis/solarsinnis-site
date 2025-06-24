@@ -104,20 +104,20 @@
     memberCard.classList.add("col-md-10", "mx-auto", "mb-4");
 
     memberCard.innerHTML = `
-      <div class="card bg-dark text-light border-warning">
+      <div class="card bg-dark text-light">
         <div class="row g-0">
           <div class="col-md-4">
             <img src="${member.foto}" class="img-fluid h-100 rounded-start" alt="Foto de ${member.nombre}" style="object-fit: cover;">
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h3 class="card-title text-warning">${member.nombre}</h3>
+              <h3 class="card-title">${member.nombre}</h3>
               <p class="card-text"><strong>Grado:</strong> ${member.grado}</p>
               <p class="card-text"><strong>Estilo:</strong> ${member.estilo}</p>
               <p class="card-text"><strong>Arma principal:</strong> ${member.arma_prin || 'N/A'}</p>
               <p class="card-text"><strong>Frase:</strong> "<em>${member.frase}</em>"</p>
               <p class="card-text"><strong>Activo desde:</strong> ${member.inicio || 'N/A'}</p>
-              //<img src="${member.escudo}" class="escudo" alt="Escudo de ${member.nombre}">
+              <!-- <img src="${member.escudo}" class="escudo" alt="Escudo de ${member.nombre}"> -->
             </div>
           </div>
         </div>
