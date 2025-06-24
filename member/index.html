@@ -130,74 +130,73 @@
 
     container.appendChild(memberCard);
 
-    // Esperar a que el DOM renderice el canvas antes de usar Chart.js
-    requestAnimationFrame(() => {
-      const ctx = document.getElementById("radarChart").getContext("2d");
-      new Chart(ctx, {
-        type: 'radar',
-        data: {
-          labels: ['Fuerza', 'Velocidad', 'Resistencia', 'Tácticas', 'Carisma', 'Precisión', 'Agilidad'],
-          datasets: [{
-            label: 'Perfil de combate',
-            data: [
-              parseInt(member.fuerza),
-              parseInt(member.velocidad),
-              parseInt(member.resistencia),
-              parseInt(member.tacticas),
-              parseInt(member.carisma),
-              parseInt(member.precision),
-              parseInt(member.agilidad)
-            ],
-            backgroundColor: 'rgba(209, 156, 66, 0.2)',
-            borderColor: 'rgba(209, 156, 66, 1)',
-            pointBackgroundColor: 'rgba(209, 156, 66, 1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(209, 156, 66, 1)',
-            borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            r: {
-              suggestedMin: 0,
-              suggestedMax: 10,
-              ticks: {
-                stepSize: 1,
-                color: '#ccc',
-                backdropColor: 'transparent'
-              },
-              grid: {
-                color: '#555'
-              },
-              angleLines: {
-                color: '#888'
-              },
-              pointLabels: {
-                display: true,
-                color: '#f5f5f5',
-                font: {
-                  size: 14,
-                  weight: 'bold'
-                }
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              labels: {
-                color: '#fff'
-              }
+   // Esperar a que el DOM renderice el canvas antes de usar Chart.js
+  requestAnimationFrame(() => {
+    const ctx = document.getElementById("radarChart").getContext("2d");
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Fuerza', 'Velocidad', 'Resistencia', 'Tácticas', 'Carisma', 'Precisión', 'Agilidad'],
+        datasets: [{
+          label: 'Perfil de combate',
+          data: [
+            parseInt(member.fuerza),
+            parseInt(member.velocidad),
+            parseInt(member.resistencia),
+            parseInt(member.tacticas),
+            parseInt(member.carisma),
+            parseInt(member.precision),
+            parseInt(member.agilidad)
+          ],
+          backgroundColor: 'rgba(160, 0, 0, 0.2)',           // fondo de la figura (transparente rojo)
+          borderColor: '#a00',                               // borde de la figura
+          pointBackgroundColor: '#a00',                      // puntos
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: '#a00',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            suggestedMin: 0,
+            suggestedMax: 10,
+            ticks: {
+              stepSize: 1,
+              color: '#ccc',
+              backdropColor: 'transparent'
             },
-            tooltip: {
-              enabled: true
+            grid: {
+              color: '#555'
+            },
+            angleLines: {
+              color: '#888'
+            },
+            pointLabels: {
+              display: true,
+              color: '#f5f5f5',
+              font: {
+                size: 14,
+                weight: 'bold'
+              }
             }
           }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#fff'
+            }
+          },
+          tooltip: {
+            enabled: true
+          }
         }
-      });
+      }
     });
-  }
+  });
 
   // Ejecutar si hay un ID en la URL
   if (memberId) {
