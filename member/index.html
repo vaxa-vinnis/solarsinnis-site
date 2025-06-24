@@ -87,30 +87,28 @@
   const apiUrl = 'https://script.google.com/macros/s/AKfycbxxmGM6zluattWSCMcYq1FJFHAxVH36qXgQ-Y4P_NXPikSte1jOfmpUMS2PmN9dDDtweQ/exec';
 
   function getMember(id) {
-  // Mostrar el spinner
-  document.getElementById("loading").style.display = "block";
-  document.getElementById("member-profile").innerHTML = ""; // Limpiar contenido
+    // Mostrar el spinner
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("member-profile").innerHTML = ""; // Limpiar contenido
 
-  fetch(apiUrl + "?id=" + id)
-    .then(response => response.json())
-    .then(data => {
-      // Ocultar el spinner
-      document.getElementById("loading").style.display = "none";
+    fetch(apiUrl + "?id=" + id)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("loading").style.display = "none"; // Ocultar el spinner
 
-      if (data && data[0] && data[0].id === id) {
-        const member = data[0];
-        displayMemberProfile(member);
-      } else {
-        document.getElementById("member-profile").innerHTML = '<p>Miembro no encontrado.</p>';
-      }
-    })
-    .catch(error => {
-      console.error("Error al obtener los datos:", error);
-      document.getElementById("loading").style.display = "none";
-      document.getElementById("member-profile").innerHTML = '<p>Error al cargar los datos.</p>';
-    });
-}
-
+        if (data && data[0] && data[0].id === id) {
+          const member = data[0];
+          displayMemberProfile(member);
+        } else {
+          document.getElementById("member-profile").innerHTML = '<p>Miembro no encontrado.</p>';
+        }
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos:", error);
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("member-profile").innerHTML = '<p>Error al cargar los datos.</p>';
+      });
+  }
 
   function displayMemberProfile(member) {
     const container = document.getElementById("member-profile");
@@ -132,7 +130,6 @@
               <p class="card-text"><strong>Arma principal:</strong> ${member.arma_prin || 'N/A'}</p>
               <p class="card-text"><strong>Frase:</strong> "<em>${member.frase}</em>"</p>
               <p class="card-text"><strong>Activo desde:</strong> ${member.inicio || 'N/A'}</p>
-              <!-- <img src="${member.escudo}" class="escudo" alt="Escudo de ${member.nombre}"> -->
             </div>
           </div>
         </div>
@@ -145,73 +142,74 @@
 
     container.appendChild(memberCard);
 
-   // Esperar a que el DOM renderice el canvas antes de usar Chart.js
-  requestAnimationFrame(() => {
-    const ctx = document.getElementById("radarChart").getContext("2d");
-    new Chart(ctx, {
-      type: 'radar',
-      data: {
-        labels: ['Fuerza', 'Velocidad', 'Resistencia', 'Tácticas', 'Carisma', 'Precisión', 'Agilidad'],
-        datasets: [{
-          label: 'Perfil de combate',
-          data: [
-            parseInt(member.fuerza),
-            parseInt(member.velocidad),
-            parseInt(member.resistencia),
-            parseInt(member.tacticas),
-            parseInt(member.carisma),
-            parseInt(member.precision),
-            parseInt(member.agilidad)
-          ],
-          backgroundColor: 'rgba(160, 0, 0, 0.2)',           // fondo de la figura (transparente rojo)
-          borderColor: '#a00',                               // borde de la figura
-          pointBackgroundColor: '#a00',                      // puntos
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: '#a00',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          r: {
-            suggestedMin: 0,
-            suggestedMax: 10,
-            ticks: {
-              stepSize: 1,
-              color: '#ccc',
-              backdropColor: 'transparent'
-            },
-            grid: {
-              color: '#555'
-            },
-            angleLines: {
-              color: '#888'
-            },
-            pointLabels: {
-              display: true,
-              color: '#f5f5f5',
-              font: {
-                size: 14,
-                weight: 'bold'
+    // Esperar a que el DOM renderice el canvas antes de usar Chart.js
+    requestAnimationFrame(() => {
+      const ctx = document.getElementById("radarChart").getContext("2d");
+      new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Fuerza', 'Velocidad', 'Resistencia', 'Tácticas', 'Carisma', 'Precisión', 'Agilidad'],
+          datasets: [{
+            label: 'Perfil de combate',
+            data: [
+              parseInt(member.fuerza),
+              parseInt(member.velocidad),
+              parseInt(member.resistencia),
+              parseInt(member.tacticas),
+              parseInt(member.carisma),
+              parseInt(member.precision),
+              parseInt(member.agilidad)
+            ],
+            backgroundColor: 'rgba(160, 0, 0, 0.2)',
+            borderColor: '#a00',
+            pointBackgroundColor: '#a00',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#a00',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            r: {
+              suggestedMin: 0,
+              suggestedMax: 10,
+              ticks: {
+                stepSize: 1,
+                color: '#ccc',
+                backdropColor: 'transparent'
+              },
+              grid: {
+                color: '#555'
+              },
+              angleLines: {
+                color: '#888'
+              },
+              pointLabels: {
+                display: true,
+                color: '#f5f5f5',
+                font: {
+                  size: 14,
+                  weight: 'bold'
+                }
               }
             }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: {
-              color: '#fff'
-            }
           },
-          tooltip: {
-            enabled: true
+          plugins: {
+            legend: {
+              labels: {
+                color: '#fff'
+              }
+            },
+            tooltip: {
+              enabled: true
+            }
           }
         }
-      }
+      });
     });
-  });
+  }
 
   // Ejecutar si hay un ID en la URL
   if (memberId) {
@@ -220,6 +218,7 @@
     document.getElementById("member-profile").innerHTML = '<p>Por favor, especifique un ID de miembro en la URL.</p>';
   }
 </script>
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
