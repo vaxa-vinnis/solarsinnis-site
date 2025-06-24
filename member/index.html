@@ -39,13 +39,13 @@
       color: var(--primary-color);
       text-decoration: none;
     }
-    .ranking-table {
-      background-color: #1a1a1a;
-      color: #f5f5f5;
+    row {
+      justify-content: center;
     }
-    .ranking-table th {
-      color: var(--primary-color);
-    }
+   .card-img, .card-img-bottom, .card-img-top {
+     align-self: center;
+   }
+
   </style>
 </head>
 <body>
@@ -154,34 +154,40 @@ function displayMemberProfile(member) {
       }]
     },
     options: {
-      responsive: true,
-      scales: {
-        r: {
-          suggestedMin: 0,
-          suggestedMax: 10,
-          ticks: {
-            stepSize: 1,
-            backdropColor: 'transparent',
-            color: '#ccc'
-          },
-          grid: {
-            color: '#555'
-          },
-          angleLines: {
-            color: '#888'
-          },
-          pointLabels: {
-            color: '#fff',
-            font: {
-              size: 14
+        responsive: true,
+        scales: {
+          r: {
+            suggestedMin: 0,
+            suggestedMax: 10,
+            ticks: {
+              stepSize: 1,
+              backdropColor: 'transparent',
+              color: '#ccc'
+            },
+            grid: {
+              color: '#555'
+            },
+            angleLines: {
+              color: '#888'
+            },
+            pointLabels: {
+              display: true,
+              color: '#f5f5f5',
+              font: {
+                size: 14,
+                weight: 'bold'
+              }
             }
           }
-        }
-      },
-      plugins: {
-        legend: {
-          labels: {
-            color: '#fff'
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#fff'
+            }
+          },
+          tooltip: {
+            enabled: true
           }
         }
       }
