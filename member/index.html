@@ -140,76 +140,90 @@
       </div>
     `;
 
-    container.appendChild(memberCard);
+      <!-- Estadísticas como dropdown -->
+      <div class="card-body">
+        <h5 class="text-center mt-4">
+          <a class="btn btn-outline-light" data-bs-toggle="collapse" href="#statsCollapse" role="button" aria-expanded="false" aria-controls="statsCollapse">
+            Ver estadísticas
+          </a>
+        </h5>
+        <div class="collapse mt-3" id="statsCollapse">
+          <canvas id="radarChart" height="400"></canvas>
+        </div>
+      </div>
+    </div>
+  `;
 
-    // Esperar a que el DOM renderice el canvas antes de usar Chart.js
-    requestAnimationFrame(() => {
-      const ctx = document.getElementById("radarChart").getContext("2d");
-      new Chart(ctx, {
-        type: 'radar',
-        data: {
-          labels: ['Fuerza', 'Velocidad', 'Resistencia', 'Tácticas', 'Carisma', 'Precisión', 'Agilidad'],
-          datasets: [{
-            label: 'Perfil de combate',
-            data: [
-              parseInt(member.fuerza),
-              parseInt(member.velocidad),
-              parseInt(member.resistencia),
-              parseInt(member.tacticas),
-              parseInt(member.carisma),
-              parseInt(member.precision),
-              parseInt(member.agilidad)
-            ],
-            backgroundColor: 'rgba(160, 0, 0, 0.2)',
-            borderColor: '#a00',
-            pointBackgroundColor: '#a00',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#a00',
-            borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            r: {
-              suggestedMin: 0,
-              suggestedMax: 10,
-              ticks: {
-                stepSize: 1,
-                color: '#ccc',
-                backdropColor: 'transparent'
-              },
-              grid: {
-                color: '#555'
-              },
-              angleLines: {
-                color: '#888'
-              },
-              pointLabels: {
-                display: true,
-                color: '#f5f5f5',
-                font: {
-                  size: 14,
-                  weight: 'bold'
-                }
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              labels: {
-                color: '#fff'
-              }
+  container.appendChild(memberCard);
+
+  // Esperar a que el DOM renderice el canvas antes de usar Chart.js
+  requestAnimationFrame(() => {
+    const ctx = document.getElementById("radarChart").getContext("2d");
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Fuerza', 'Velocidad', 'Resistencia', 'Tácticas', 'Carisma', 'Precisión', 'Agilidad'],
+        datasets: [{
+          label: 'Perfil de combate',
+          data: [
+            parseInt(member.fuerza),
+            parseInt(member.velocidad),
+            parseInt(member.resistencia),
+            parseInt(member.tacticas),
+            parseInt(member.carisma),
+            parseInt(member.precision),
+            parseInt(member.agilidad)
+          ],
+          backgroundColor: 'rgba(160, 0, 0, 0.2)',
+          borderColor: '#a00',
+          pointBackgroundColor: '#a00',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: '#a00',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            suggestedMin: 0,
+            suggestedMax: 10,
+            ticks: {
+              stepSize: 1,
+              color: '#ccc',
+              backdropColor: 'transparent'
             },
-            tooltip: {
-              enabled: true
+            grid: {
+              color: '#555'
+            },
+            angleLines: {
+              color: '#888'
+            },
+            pointLabels: {
+              display: true,
+              color: '#f5f5f5',
+              font: {
+                size: 14,
+                weight: 'bold'
+              }
             }
           }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#fff'
+            }
+          },
+          tooltip: {
+            enabled: true
+          }
         }
-      });
+      }
     });
-  }
+  });
+}
 
   // Ejecutar si hay un ID en la URL
   if (memberId) {
