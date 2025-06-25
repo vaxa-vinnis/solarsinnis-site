@@ -87,9 +87,8 @@
   const apiUrl = 'https://script.google.com/macros/s/AKfycbxxmGM6zluattWSCMcYq1FJFHAxVH36qXgQ-Y4P_NXPikSte1jOfmpUMS2PmN9dDDtweQ/exec';
 
   function getMember(id) {
-    // Mostrar el spinner
     document.getElementById("loading").style.display = "block";
-    document.getElementById("member-profile").innerHTML = ""; // Limpiar contenido
+    document.getElementById("member-profile").innerHTML = "";
 
     fetch(apiUrl + "?id=" + id)
       .then(response => response.json())
@@ -97,14 +96,13 @@
         document.getElementById("loading").style.display = "none";
 
         if (data && data[0] && data[0].id === id) {
-          const member = data[0];
-          displayMemberProfile(member);
+          displayMemberProfile(data[0]);
         } else {
           document.getElementById("member-profile").innerHTML = '<p>Miembro no encontrado.</p>';
         }
       })
       .catch(error => {
-        console.error("Error al obtener los datos:", error);
+        console.error("Error:", error);
         document.getElementById("loading").style.display = "none";
         document.getElementById("member-profile").innerHTML = '<p>Error al cargar los datos.</p>';
       });
@@ -134,23 +132,32 @@
           </div>
         </div>
 
-        <!-- Estadísticas como dropdown -->
+        <!-- Dropdown de Estadísticas -->
         <div class="card-body">
-          <h5 class="text-center mt-4">
-            <a class="btn btn-outline-light" data-bs-toggle="collapse" href="#statsCollapse" role="button" aria-expanded="false" aria-controls="statsCollapse">
-              Ver estadísticas
-            </a>
-          </h5>
-          <div class="collapse mt-3" id="statsCollapse">
+          <button class="btn btn-outline-light mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#statsCollapse" aria-expanded="false" aria-controls="statsCollapse">
+            Ver estadísticas de combate
+          </button>
+          <div class="collapse" id="statsCollapse">
+            <h5 class="text-center mt-3">Estadísticas</h5>
             <canvas id="radarChart" height="400"></canvas>
           </div>
+        </div>
+
+        <!-- Sección de Perfil de Recreador -->
+        <div class="card-body border-top mt-3">
+          <h5 class="text-center">Perfil de recreador</h5>
+          <p class="card-text"><strong>Nombre del personaje:</strong> ${member.nom_personaje || 'N/A'}</p>
+          <p class="card-text"><strong>Siglo:</strong> ${member.siglo || 'N/A'}</p>
+          <p class="card-text"><strong>Región:</strong> ${member.region || 'N/A'}</p>
+          <p class="card-text"><strong>Casta:</strong> ${member.casta || 'N/A'}</p>
+          <p class="card-text"><strong>Eventos destacados:</strong> ${member.eventos || 'N/A'}</p>
         </div>
       </div>
     `;
 
     container.appendChild(memberCard);
 
-    // Esperar a que el DOM renderice el canvas antes de usar Chart.js
+    // Render radar chart
     requestAnimationFrame(() => {
       const ctx = document.getElementById("radarChart").getContext("2d");
       new Chart(ctx, {
@@ -219,16 +226,12 @@
     });
   }
 
-  // Ejecutar si hay un ID en la URL
   if (memberId) {
     getMember(memberId);
   } else {
     document.getElementById("member-profile").innerHTML = '<p>Por favor, especifique un ID de miembro en la URL.</p>';
   }
 </script>
-
-
-
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
