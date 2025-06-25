@@ -111,34 +111,28 @@
   }
 
   function displayMemberProfile(member) {
-    const container = document.getElementById("member-profile");
+  const container = document.getElementById("member-profile");
 
-    const memberCard = document.createElement("div");
-    memberCard.classList.add("col-md-10", "mx-auto", "mb-4");
+  const memberCard = document.createElement("div");
+  memberCard.classList.add("col-md-10", "mx-auto", "mb-4");
 
-    memberCard.innerHTML = `
-      <div class="card bg-dark text-light">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="${member.foto}" class="img-fluid h-100 rounded-start" alt="Foto de ${member.nombre}" style="object-fit: cover;">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h3 class="card-title">${member.nombre}</h3>
-              <p class="card-text"><strong>Grado:</strong> ${member.grado}</p>
-              <p class="card-text"><strong>Estilo:</strong> ${member.estilo}</p>
-              <p class="card-text"><strong>Arma principal:</strong> ${member.arma_prin || 'N/A'}</p>
-              <p class="card-text"><strong>Frase:</strong> "<em>${member.frase}</em>"</p>
-              <p class="card-text"><strong>Admitido el:</strong> ${member.inicio || 'N/A'}</p>
-            </div>
-          </div>
+  memberCard.innerHTML = `
+    <div class="card bg-dark text-light">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${member.foto}" class="img-fluid h-100 rounded-start" alt="Foto de ${member.nombre}" style="object-fit: cover;">
         </div>
-        <div class="card-body">
-          <h5 class="text-center mt-4">Estadísticas</h5>
-          <canvas id="radarChart" height="400"></canvas>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h3 class="card-title">${member.nombre}</h3>
+            <p class="card-text"><strong>Grado:</strong> ${member.grado}</p>
+            <p class="card-text"><strong>Estilo:</strong> ${member.estilo}</p>
+            <p class="card-text"><strong>Arma principal:</strong> ${member.arma_prin || 'N/A'}</p>
+            <p class="card-text"><strong>Frase:</strong> "<em>${member.frase}</em>"</p>
+            <p class="card-text"><strong>Activo desde:</strong> ${member.inicio || 'N/A'}</p>
+          </div>
         </div>
       </div>
-    `;
 
       <!-- Estadísticas como dropdown -->
       <div class="card-body">
