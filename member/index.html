@@ -94,7 +94,7 @@
     fetch(apiUrl + "?id=" + id)
       .then(response => response.json())
       .then(data => {
-        document.getElementById("loading").style.display = "none"; // Ocultar el spinner
+        document.getElementById("loading").style.display = "none";
 
         if (data && data[0] && data[0].id === id) {
           const member = data[0];
@@ -111,113 +111,113 @@
   }
 
   function displayMemberProfile(member) {
-  const container = document.getElementById("member-profile");
+    const container = document.getElementById("member-profile");
 
-  const memberCard = document.createElement("div");
-  memberCard.classList.add("col-md-10", "mx-auto", "mb-4");
+    const memberCard = document.createElement("div");
+    memberCard.classList.add("col-md-10", "mx-auto", "mb-4");
 
-  memberCard.innerHTML = `
-    <div class="card bg-dark text-light">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="${member.foto}" class="img-fluid h-100 rounded-start" alt="Foto de ${member.nombre}" style="object-fit: cover;">
+    memberCard.innerHTML = `
+      <div class="card bg-dark text-light">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="${member.foto}" class="img-fluid h-100 rounded-start" alt="Foto de ${member.nombre}" style="object-fit: cover;">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h3 class="card-title">${member.nombre}</h3>
+              <p class="card-text"><strong>Grado:</strong> ${member.grado}</p>
+              <p class="card-text"><strong>Estilo:</strong> ${member.estilo}</p>
+              <p class="card-text"><strong>Arma principal:</strong> ${member.arma_prin || 'N/A'}</p>
+              <p class="card-text"><strong>Frase:</strong> "<em>${member.frase}</em>"</p>
+              <p class="card-text"><strong>Activo desde:</strong> ${member.inicio || 'N/A'}</p>
+            </div>
+          </div>
         </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title">${member.nombre}</h3>
-            <p class="card-text"><strong>Grado:</strong> ${member.grado}</p>
-            <p class="card-text"><strong>Estilo:</strong> ${member.estilo}</p>
-            <p class="card-text"><strong>Arma principal:</strong> ${member.arma_prin || 'N/A'}</p>
-            <p class="card-text"><strong>Frase:</strong> "<em>${member.frase}</em>"</p>
-            <p class="card-text"><strong>Activo desde:</strong> ${member.inicio || 'N/A'}</p>
+
+        <!-- Estadísticas como dropdown -->
+        <div class="card-body">
+          <h5 class="text-center mt-4">
+            <a class="btn btn-outline-light" data-bs-toggle="collapse" href="#statsCollapse" role="button" aria-expanded="false" aria-controls="statsCollapse">
+              Ver estadísticas
+            </a>
+          </h5>
+          <div class="collapse mt-3" id="statsCollapse">
+            <canvas id="radarChart" height="400"></canvas>
           </div>
         </div>
       </div>
+    `;
 
-      <!-- Estadísticas como dropdown -->
-      <div class="card-body">
-        <h5 class="text-center mt-4">
-          <a class="btn btn-outline-light" data-bs-toggle="collapse" href="#statsCollapse" role="button" aria-expanded="false" aria-controls="statsCollapse">
-            Ver estadísticas
-          </a>
-        </h5>
-        <div class="collapse mt-3" id="statsCollapse">
-          <canvas id="radarChart" height="400"></canvas>
-        </div>
-      </div>
-    </div>
-  `;
+    container.appendChild(memberCard);
 
-  container.appendChild(memberCard);
-
-  // Esperar a que el DOM renderice el canvas antes de usar Chart.js
-  requestAnimationFrame(() => {
-    const ctx = document.getElementById("radarChart").getContext("2d");
-    new Chart(ctx, {
-      type: 'radar',
-      data: {
-        labels: ['Fuerza', 'Velocidad', 'Resistencia', 'Tácticas', 'Carisma', 'Precisión', 'Agilidad'],
-        datasets: [{
-          label: 'Perfil de combate',
-          data: [
-            parseInt(member.fuerza),
-            parseInt(member.velocidad),
-            parseInt(member.resistencia),
-            parseInt(member.tacticas),
-            parseInt(member.carisma),
-            parseInt(member.precision),
-            parseInt(member.agilidad)
-          ],
-          backgroundColor: 'rgba(160, 0, 0, 0.2)',
-          borderColor: '#a00',
-          pointBackgroundColor: '#a00',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: '#a00',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          r: {
-            suggestedMin: 0,
-            suggestedMax: 10,
-            ticks: {
-              stepSize: 1,
-              color: '#ccc',
-              backdropColor: 'transparent'
-            },
-            grid: {
-              color: '#555'
-            },
-            angleLines: {
-              color: '#888'
-            },
-            pointLabels: {
-              display: true,
-              color: '#f5f5f5',
-              font: {
-                size: 14,
-                weight: 'bold'
+    // Esperar a que el DOM renderice el canvas antes de usar Chart.js
+    requestAnimationFrame(() => {
+      const ctx = document.getElementById("radarChart").getContext("2d");
+      new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Fuerza', 'Velocidad', 'Resistencia', 'Tácticas', 'Carisma', 'Precisión', 'Agilidad'],
+          datasets: [{
+            label: 'Perfil de combate',
+            data: [
+              parseInt(member.fuerza),
+              parseInt(member.velocidad),
+              parseInt(member.resistencia),
+              parseInt(member.tacticas),
+              parseInt(member.carisma),
+              parseInt(member.precision),
+              parseInt(member.agilidad)
+            ],
+            backgroundColor: 'rgba(160, 0, 0, 0.2)',
+            borderColor: '#a00',
+            pointBackgroundColor: '#a00',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#a00',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            r: {
+              suggestedMin: 0,
+              suggestedMax: 10,
+              ticks: {
+                stepSize: 1,
+                color: '#ccc',
+                backdropColor: 'transparent'
+              },
+              grid: {
+                color: '#555'
+              },
+              angleLines: {
+                color: '#888'
+              },
+              pointLabels: {
+                display: true,
+                color: '#f5f5f5',
+                font: {
+                  size: 14,
+                  weight: 'bold'
+                }
               }
             }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: {
-              color: '#fff'
-            }
           },
-          tooltip: {
-            enabled: true
+          plugins: {
+            legend: {
+              labels: {
+                color: '#fff'
+              }
+            },
+            tooltip: {
+              enabled: true
+            }
           }
         }
-      }
+      });
     });
-  });
-}
+  }
 
   // Ejecutar si hay un ID en la URL
   if (memberId) {
@@ -226,6 +226,7 @@
     document.getElementById("member-profile").innerHTML = '<p>Por favor, especifique un ID de miembro en la URL.</p>';
   }
 </script>
+
 
 
 
