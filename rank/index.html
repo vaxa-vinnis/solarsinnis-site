@@ -44,6 +44,17 @@
     .ranking-table th {
       color: var(--primary-color);
     }
+  .rank-change {
+    font-size: 0.65rem;
+    vertical-align: super;
+    margin-left: 4px;
+  }
+  .rank-up {
+    color: #4caf50; /* Verde */
+  }
+  .rank-down {
+    color: #f44336; /* Rojo */
+  }
   </style>
 </head>
 <body>
@@ -92,28 +103,40 @@
 
     // Usamos PapaParse para cargar y procesar el CSV
     Papa.parse(csvUrl, {
-      download: true,          // Indica que el archivo se descargará
-      header: true,            // Si el CSV tiene una fila de encabezado
-      skipEmptyLines: true,    // Omitir líneas vacías
-      complete: function(results) {
-        console.log(results);  // Muestra los resultados en la consola para depuración
+  download: true,
+  header: true,
+  skipEmptyLines: true,
+  complete: function(results) {
+    const tableBody = document.getElementById('ranking-table');
+    results.data.forEach(function(row) {
+      const tr = document.createElement('tr');
+      const tdName = document.createElement('td');
+      const tdRank = document.createElement('td');
 
-        // Insertamos los datos en la tabla
-        const tableBody = document.getElementById('ranking-table');
-        results.data.forEach(function(row) {
-          const tr = document.createElement('tr');
-          const tdName = document.createElement('td');
-          const tdRank = document.createElement('td');
-          
-          tdName.textContent = row['Nombre'];  // Cambia 'Nombre' al nombre exacto de la columna en tu CSV
-          tdRank.textContent = row['Rank'];    // Cambia 'Rank' al nombre exacto de la columna en tu CSV
-          
-          tr.appendChild(tdName);
-          tr.appendChild(tdRank);
-          tableBody.appendChild(tr);
-        });
+      tdName.textContent = row['Nombre'];
+
+      const rank = row['Rank'];
+      const subida = parseInt(row['puntos_subidos']);
+      
+      const span = document.createElement('span');
+      span.classList.add('rank-change');
+
+      if (!isNaN(subida) && subida !== 0) {
+        const flecha = subida > 0 ? '▲' : '▼';
+        span.classList.add(subida > 0 ? 'rank-up' : 'rank-down');
+        span.textContent = flecha + Math.abs(subida);
+        tdRank.innerHTML = `${rank} `;
+        tdRank.appendChild(span);
+      } else {
+        tdRank.textContent = rank;
       }
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdRank);
+      tableBody.appendChild(tr);
     });
+  }
+});
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
