@@ -84,6 +84,7 @@
         <tr>
           <th>Nombre</th>
           <th>Rank</th>
+          <th>Meta</th>
         </tr>
       </thead>
       <tbody id="ranking-table">
@@ -98,46 +99,66 @@
     </div>
   </footer>
   <script>
-    // URL del archivo CSV publicado desde Google Sheets
-    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQklCVPE5o5ZdQck2-aSmjq-esQ2elyfpdS4Cz9PUYwGD-wkERbZeFPVLS_ldJLnLzXDUwqkqs6O2YJ/pub?output=csv';
+  const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQklCVPE5o5ZdQck2-aSmjq-esQ2elyfpdS4Cz9PUYwGD-wkERbZeFPVLS_ldJLnLzXDUwqkqs6O2YJ/pub?output=csv';
 
-    // Usamos PapaParse para cargar y procesar el CSV
-    Papa.parse(csvUrl, {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function(results) {
-    const tableBody = document.getElementById('ranking-table');
-    results.data.forEach(function(row) {
-      const tr = document.createElement('tr');
-      const tdName = document.createElement('td');
-      const tdRank = document.createElement('td');
+  Papa.parse(csvUrl, {
+    download: true,
+    header: true,
+    skipEmptyLines: true,
+    complete: function(results) {
+      const tableBody = document.getElementById('ranking-table');
+      const lastUpdateContainer = document.createElement('div');
+      lastUpdateContainer.classList.add('text-center', 'mt-4');
+      document.querySelector('.container.py-5').appendChild(lastUpdateContainer);
 
-      tdName.textContent = row['Nombre'];
+      results.data.forEach(function(row) {
+        if (row['Nombre'] && row['Nombre'].toLowerCase().trim() === 'last_update') {
+          // Convertir la fecha
+          const fechaOriginal = row['Rank'] || row['rank'] || row['Fecha'] || '';
+          const [dia, mes, anio] = fechaOriginal.split('/');
+          const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+          const fechaFormateada = `${parseInt(dia)} de ${meses[parseInt(mes) - 1]} del ${anio}`;
+          lastUpdateContainer.textContent = `Actualizado al ${fechaFormateada}`;
+          return;
+        }
 
-      const rank = row['Rank'];
-      const subida = parseInt(row['puntos_subidos']);
-      
-      const span = document.createElement('span');
-      span.classList.add('rank-change');
+        // Crear fila para el ranking
+        const tr = document.createElement('tr');
+        const tdName = document.createElement('td');
+        const tdRank = document.createElement('td');
+        const tdMeta = document.createElement('td');
 
-      if (!isNaN(subida) && subida !== 0) {
-        const flecha = subida > 0 ? '▲' : '▼';
-        span.classList.add(subida > 0 ? 'rank-up' : 'rank-down');
-        span.textContent = flecha + Math.abs(subida);
-        tdRank.innerHTML = `${rank} `;
-        tdRank.appendChild(span);
-      } else {
-        tdRank.textContent = rank;
-      }
+        tdName.textContent = row['Nombre'];
 
-      tr.appendChild(tdName);
-      tr.appendChild(tdRank);
-      tableBody.appendChild(tr);
-    });
-  }
-});
-  </script>
+        const rank = row['Rank'];
+        const subida = parseInt(row['puntos_subidos']);
+        const meta = row['meta'] || '-';
+
+        // RANK + flecha de cambio
+        const span = document.createElement('span');
+        span.classList.add('rank-change');
+
+        if (!isNaN(subida) && subida !== 0) {
+          const flecha = subida > 0 ? '▲' : '▼';
+          span.classList.add(subida > 0 ? 'rank-up' : 'rank-down');
+          span.textContent = flecha + Math.abs(subida);
+          tdRank.innerHTML = `${rank} `;
+          tdRank.appendChild(span);
+        } else {
+          tdRank.textContent = rank;
+        }
+
+        tdMeta.textContent = meta;
+
+        tr.appendChild(tdName);
+        tr.appendChild(tdRank);
+        tr.appendChild(tdMeta);
+        tableBody.appendChild(tr);
+      });
+    }
+  });
+</script>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
