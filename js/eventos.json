@@ -1,0 +1,29 @@
+{
+  "marquesa": {
+    "titulo": "La Marquesa",
+    "cover": "img/eventos/marquesa/01.jpg",
+    "imagenes": [
+      "img/eventos/marquesa/01.jpg",
+      "img/eventos/marquesa/02.jpg",
+      "img/eventos/marquesa/03.jpg"
+    ]
+  },
+  "queretaro": {
+    "titulo": "Festival Medieval Querétaro",
+    "cover": "img/eventos/queretaro/01.jpg",
+    "imagenes": [
+      "img/eventos/queretaro/01.jpg",
+      "img/eventos/queretaro/02.jpg"
+    ]
+  },
+  "teotihuacan": {
+    "titulo": "Teotihuacan",
+    "cover": "img/eventos/teotihuacan/01.jpg",
+    "imagenes": [
+      "img/eventos/teotihuacan/01.jpg",
+      "img/eventos/teotihuacan/02.jpg",
+      "img/eventos/teotihuacan/03.jpg"
+    ]
+  }
+}
+
