@@ -1,6 +1,6 @@
 {
   "marquesa": {
-    "titulo": "La Marquesa",
+    "titulo": "Festival Medieval La Marquesa 2026",
     "cover": "img/eventos/marquesa/01.jpg",
     "imagenes": [
       "img/eventos/marquesa/01.jpg",
@@ -8,21 +8,30 @@
       "img/eventos/marquesa/03.jpg"
     ]
   },
-  "queretaro": {
-    "titulo": "Festival Medieval Querétaro",
+  "queretaro24": {
+    "titulo": "Festival Medieval Querétaro 2024",
     "cover": "img/eventos/queretaro/01.jpg",
     "imagenes": [
       "img/eventos/queretaro/01.jpg",
       "img/eventos/queretaro/02.jpg"
     ]
   },
-  "teotihuacan": {
-    "titulo": "Teotihuacan",
-    "cover": "img/eventos/teotihuacan/01.jpg",
+  "viking24": {
+    "titulo": "Viking Fest 2024",
+    "cover": "img/eventos/viking24/01.jpg",
     "imagenes": [
-      "img/eventos/teotihuacan/01.jpg",
-      "img/eventos/teotihuacan/02.jpg",
-      "img/eventos/teotihuacan/03.jpg"
+      "img/eventos/viking24/01.jpg",
+      "img/eventos/viking24/02.jpg",
+      "img/eventos/viking24/03.jpg"
+    ]
+  },
+  "viking25": {
+    "titulo": "Viking Fest 2025",
+    "cover": "img/eventos/viking25/01.jpg",
+    "imagenes": [
+      "img/eventos/viking25/01.jpg",
+      "img/eventos/viking25/02.jpg",
+      "img/eventos/viking25/03.jpg"
     ]
   }
 }
