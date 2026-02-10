@@ -1,5 +1,5 @@
 {
-  "marquesa": {
+  "marquesa26": {
     "titulo": "Festival Medieval La Marquesa 2026",
     "cover": "img/eventos/marquesa/01.jpg",
     "imagenes": [
@@ -8,12 +8,22 @@
       "img/eventos/marquesa/03.jpg"
     ]
   },
-  "queretaro24": {
-    "titulo": "Festival Medieval Querétaro 2024",
-    "cover": "img/eventos/queretaro/01.jpg",
+  "fce25": {
+    "titulo": "Feria del Libro Medieval 2025",
+    "cover": "img/eventos/fce25/01.jpg",
     "imagenes": [
-      "img/eventos/queretaro/01.jpg",
-      "img/eventos/queretaro/02.jpg"
+      "img/eventos/fce25/01.jpg",
+      "img/eventos/fce25/02.jpg",
+      "img/eventos/fce25/03.jpg"
+    ]
+  },
+  "viking25": {
+    "titulo": "Viking Fest 2025",
+    "cover": "img/eventos/viking25/01.jpg",
+    "imagenes": [
+      "img/eventos/viking25/01.jpg",
+      "img/eventos/viking25/02.jpg",
+      "img/eventos/viking25/03.jpg"
     ]
   },
   "viking24": {
@@ -25,13 +35,39 @@
       "img/eventos/viking24/03.jpg"
     ]
   },
-  "viking25": {
-    "titulo": "Viking Fest 2025",
-    "cover": "img/eventos/viking25/01.jpg",
+  "guanajuato24": {
+    "titulo": "Festival Medieval Guanajuato 2024",
+    "cover": "img/eventos/guanajuato24/01.jpg",
     "imagenes": [
-      "img/eventos/viking25/01.jpg",
-      "img/eventos/viking25/02.jpg",
-      "img/eventos/viking25/03.jpg"
+      "img/eventos/guanajuato24/01.jpg",
+      "img/eventos/guanajuato24/02.jpg",
+      "img/eventos/guanajuato24/03.jpg"
+    ]
+  },
+  "queretaro24": {
+    "titulo": "Festival Medieval Querétaro 2024",
+    "cover": "img/eventos/queretaro/01.jpg",
+    "imagenes": [
+      "img/eventos/queretaro/01.jpg",
+      "img/eventos/queretaro/02.jpg"
+    ]
+  },
+  "fce24": {
+    "titulo": "Feria del Libro Medieval 2024",
+    "cover": "img/eventos/fce24/01.jpg",
+    "imagenes": [
+      "img/eventos/fce24/01.jpg",
+      "img/eventos/fce24/02.jpg",
+      "img/eventos/fce24/03.jpg"
+    ]
+  },
+  "fce23": {
+    "titulo": "Feria del Libro Medieval 2023",
+    "cover": "img/eventos/fce23/01.jpg",
+    "imagenes": [
+      "img/eventos/fce23/01.jpg",
+      "img/eventos/fce23/02.jpg",
+      "img/eventos/fce23/03.jpg"
     ]
   }
 }
