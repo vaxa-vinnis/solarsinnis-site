@@ -39,38 +39,34 @@ fetch("js/eventos.json")
     }
 
     // ───────── DETALLE DE EVENTO ─────────
-    const evento = eventos[eventoKey];
-    titulo.innerText = evento.titulo;
+      const evento = eventos[eventoKey];
+      titulo.innerText = evento.titulo;
 
-    fetch(`img/eventos/${eventoKey}/index.json`)
-      .then(res => res.json())
-      .then(data => {
+      let slides = "";
 
-        let slides = "";
-
-        data.imagenes.forEach((img, index) => {
-          slides += `
-            <div class="carousel-item ${index === 0 ? "active" : ""}">
-              <img src="img/eventos/${eventoKey}/${img}"
-                   class="d-block w-100 evento-carousel-img">
-            </div>
-          `;
-        });
-
-        carousel.innerHTML = `
-          <div id="eventoCarousel" class="carousel slide carousel-fade shadow-lg" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              ${slides}
-            </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#eventoCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon"></span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#eventoCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon"></span>
-            </button>
+      evento.imagenes.forEach((img, index) => {
+        slides += `
+          <div class="carousel-item ${index === 0 ? "active" : ""}">
+            <img src="${img}"
+                class="d-block w-100 evento-carousel-img">
           </div>
         `;
       });
+
+      carousel.innerHTML = `
+        <div id="eventoCarousel" class="carousel slide carousel-fade shadow-lg" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            ${slides}
+          </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#eventoCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+
+          <button class="carousel-control-next" type="button" data-bs-target="#eventoCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+      `;
+
   });
