@@ -21,7 +21,7 @@ fetch("js/eventos.json")
 
         html += `
           <div class="col-md-6 col-lg-4">
-            <a href="eventos.html?evento=${key}" class="evento-card text-decoration-none">
+            <a href="eventos?evento=${key}" class="evento-card text-decoration-none">
               <div class="evento-bg" style="background-image:url('${ev.cover}')">
                 <div class="evento-overlay"></div>
                 <div class="evento-title">
